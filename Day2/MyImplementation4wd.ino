@@ -39,6 +39,11 @@ void setup() {
   pinMode(rmBackBackwardPin, OUTPUT);
 
   randomSeed(analogRead(19));
+
+  digitalWrite(lmFrontSpeedPin, HIGH);
+  digitalWrite(rmFrontSpeedPin, HIGH);
+  digitalWrite(lmBackSpeedPin, HIGH);
+  digitalWrite(rmBackSpeedPin, HIGH);
 }
 
 void loop() {
