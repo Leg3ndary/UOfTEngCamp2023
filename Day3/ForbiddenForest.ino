@@ -2,122 +2,124 @@
 
 
 UltraSonicDistanceSensor ultrasonic(A0, A1);
-float distance;
 
 // Left Front Motor
-int lmFrontSpeedPin = 5;
-int lmFrontForwardPin = 6;
-int lmFrontBackwardPin = 7;
+const int lmfSpeed = A5;
+const int lmfForward = 3;
+const int lmfBackward = 4;
 // Left Back Motor
-int lmBackSpeedPin = 3;
-int lmBackForwardPin = 4;
-int lmBackBackwardPin = A5;
-
-
+const int lmbSpeed = 5;
+const int lmbForward = 6;
+const int lmbBackward = 7;
 // Right Front Motor
-int rmFrontSpeedPin = 11;
-int rmFrontForwardPin = 12;
-int rmFrontBackwardPin = 13;
+const int rmfSpeed = 8;
+const int rmfForward = 9;
+const int rmfBackward = 10;
 // Right Backward Motor
-int rmBackSpeedPin = 8;
-int rmBackForwardPin = 9;
-int rmBackBackwardPin = 10;
+const int rmbSpeed = 11;
+const int rmbForward = 12;
+const int rmbBackward = 13;
+// Misc
+const int LEDs = A2;
+const int IRSensor = A3;
+const int piezo = A4;
 
+float USDistance;
+float IRDistance
 
 void setup() {
-  pinMode(lmFrontSpeedPin, OUTPUT);
-  pinMode(lmFrontForwardPin, OUTPUT);
-  pinMode(lmFrontBackwardPin, OUTPUT);
-  pinMode(lmBackSpeedPin, OUTPUT);
-  pinMode(lmBackForwardPin, OUTPUT);
-  pinMode(lmBackBackwardPin, OUTPUT);
-  pinMode(rmFrontSpeedPin, OUTPUT);
-  pinMode(rmFrontForwardPin, OUTPUT);
-  pinMode(rmFrontBackwardPin, OUTPUT);
-  pinMode(rmBackSpeedPin, OUTPUT);
-  pinMode(rmBackForwardPin, OUTPUT);
-  pinMode(rmBackBackwardPin, OUTPUT);
+  pinMode(lmfSpeed, OUTPUT);
+  pinMode(lmfForward, OUTPUT);
+  pinMode(lmfBackward, OUTPUT);
+  pinMode(lmbSpeed, OUTPUT);
+  pinMode(lmbForward, OUTPUT);
+  pinMode(lmbBackward, OUTPUT);
+  pinMode(rmfSpeed, OUTPUT);
+  pinMode(rmfForward, OUTPUT);
+  pinMode(rmfBackward, OUTPUT);
+  pinMode(rmbSpeed, OUTPUT);
+  pinMode(rmbForward, OUTPUT);
+  pinMode(rmbBackward, OUTPUT);
+  pinMode(LEDs, OUTPUT);
+  pinMode(IRSensor, INPUT);
+  pinMode(piezo, OUTPUT);
 
-  randomSeed(analogRead(19));
-
-  digitalWrite(lmFrontSpeedPin, HIGH);
-  digitalWrite(rmFrontSpeedPin, HIGH);
-  digitalWrite(lmBackSpeedPin, HIGH);
-  digitalWrite(rmBackSpeedPin, HIGH);
+  digitalWrite(lmfSpeed, HIGH);
+  digitalWrite(rmfSpeed, HIGH);
+  digitalWrite(lmbSpeed, HIGH);
+  digitalWrite(rmbSpeed, HIGH);
 }
 
 void loop() {
-  distance = ultrasonic.measureDistanceCm();
+  USDistance = ultrasonic.measureDistanceCm();
+  IRDistance = analogRead(IRSensor) * 10;
 
   if (distance < 0 || distance < 25) {
     stop();
-    delay(50);
     goBackward();
     stop();
-    delay(50);
     if (random(0, 2)) {
       goLeft();
     } else {
       goRight();
     }
     stop();
-    delay(50);
   } else {
     goForward();
   }
 }
 
 void goForward() {
-  digitalWrite(lmFrontForwardPin, HIGH);
-  digitalWrite(lmFrontBackwardPin, LOW);
-  digitalWrite(rmFrontForwardPin, HIGH);
-  digitalWrite(rmFrontBackwardPin, LOW);
-  digitalWrite(lmBackForwardPin, HIGH);
-  digitalWrite(lmBackBackwardPin, LOW);
-  digitalWrite(rmBackForwardPin, HIGH);
-  digitalWrite(rmBackBackwardPin, LOW);
+  digitalWrite(lmfForward, HIGH);
+  digitalWrite(lmfBackward, LOW);
+  digitalWrite(rmfForward, HIGH);
+  digitalWrite(rmfBackward, LOW);
+  digitalWrite(lmbForward, HIGH);
+  digitalWrite(lmbBackward, LOW);
+  digitalWrite(rmbForward, HIGH);
+  digitalWrite(rmbBackward, LOW);
 }
 
 void goBackward() {
-  digitalWrite(lmFrontForwardPin, LOW);
-  digitalWrite(lmFrontBackwardPin, HIGH);
-  digitalWrite(rmFrontForwardPin, LOW);
-  digitalWrite(rmFrontBackwardPin, HIGH);
-  digitalWrite(lmBackForwardPin, LOW);
-  digitalWrite(lmBackBackwardPin, HIGH);
-  digitalWrite(rmBackForwardPin, LOW);
-  digitalWrite(rmBackBackwardPin, HIGH);
+  digitalWrite(lmfForward, LOW);
+  digitalWrite(lmfBackward, HIGH);
+  digitalWrite(rmfForward, LOW);
+  digitalWrite(rmfBackward, HIGH);
+  digitalWrite(lmbForward, LOW);
+  digitalWrite(lmbBackward, HIGH);
+  digitalWrite(rmbForward, LOW);
+  digitalWrite(rmbBackward, HIGH);
 }
 
 void stop() {
-  digitalWrite(lmFrontForwardPin, LOW);
-  digitalWrite(lmFrontBackwardPin, LOW);
-  digitalWrite(rmFrontForwardPin, LOW);
-  digitalWrite(rmFrontBackwardPin, LOW);
-  digitalWrite(lmBackForwardPin, LOW);
-  digitalWrite(lmBackBackwardPin, LOW);
-  digitalWrite(rmBackForwardPin, LOW);
-  digitalWrite(rmBackBackwardPin, LOW);
+  digitalWrite(lmfForward, LOW);
+  digitalWrite(lmfBackward, LOW);
+  digitalWrite(rmfForward, LOW);
+  digitalWrite(rmfBackward, LOW);
+  digitalWrite(lmbForward, LOW);
+  digitalWrite(lmbBackward, LOW);
+  digitalWrite(rmbForward, LOW);
+  digitalWrite(rmbBackward, LOW);
 }
 
 void goRight() {
-  digitalWrite(lmFrontForwardPin, HIGH);
-  digitalWrite(lmFrontBackwardPin, LOW);
-  digitalWrite(rmFrontForwardPin, LOW);
-  digitalWrite(rmFrontBackwardPin, LOW);
-  digitalWrite(lmBackForwardPin, HIGH);
-  digitalWrite(lmBackBackwardPin, LOW);
-  digitalWrite(rmBackForwardPin, LOW);
-  digitalWrite(rmBackBackwardPin, LOW);
+  digitalWrite(lmfForward, HIGH);
+  digitalWrite(lmfBackward, LOW);
+  digitalWrite(rmfForward, LOW);
+  digitalWrite(rmfBackward, LOW);
+  digitalWrite(lmbForward, HIGH);
+  digitalWrite(lmbBackward, LOW);
+  digitalWrite(rmbForward, LOW);
+  digitalWrite(rmbBackward, LOW);
 }
 
 void goLeft() {
-  digitalWrite(lmFrontForwardPin, LOW);
-  digitalWrite(lmFrontBackwardPin, LOW);
-  digitalWrite(rmFrontForwardPin, HIGH);
-  digitalWrite(rmFrontBackwardPin, LOW);
-  digitalWrite(lmBackForwardPin, LOW);
-  digitalWrite(lmBackBackwardPin, LOW);
-  digitalWrite(rmBackForwardPin, HIGH);
-  digitalWrite(rmBackBackwardPin, LOW);
+  digitalWrite(lmfForward, LOW);
+  digitalWrite(lmfBackward, LOW);
+  digitalWrite(rmfForward, HIGH);
+  digitalWrite(rmfBackward, LOW);
+  digitalWrite(lmbForward, LOW);
+  digitalWrite(lmbBackward, LOW);
+  digitalWrite(rmbForward, HIGH);
+  digitalWrite(rmbBackward, LOW);
 }
