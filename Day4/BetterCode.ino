@@ -4,9 +4,9 @@
 UltraSonicDistanceSensor ultrasonic(A0, A1);
 
 // Left Front Motor
-const int lmfSpeed = A5;
-const int lmfForward = 3;
-const int lmfBackward = 4;
+const int lmfSpeed = 11;
+const int lmfForward = 12;
+const int lmfBackward = 13;
 // Left Back Motor
 const int lmbSpeed = 5;
 const int lmbForward = 6;
@@ -16,9 +16,9 @@ const int rmfSpeed = 8;
 const int rmfForward = 9;
 const int rmfBackward = 10;
 // Right Backward Motor
-const int rmbSpeed = 11;
-const int rmbForward = 12;
-const int rmbBackward = 13;
+const int rmbSpeed = A5;
+const int rmbForward = 3;
+const int rmbBackward = 4;
 // Misc
 const int LEDs = A2;
 const int IRSensor = A3;
